@@ -30,7 +30,7 @@
                     </div>
 
                     <div style="text-align: center; margin-top: 20px">
-                        <span id="cumulative"><%= (locals.k_max !== undefined) ? "Best K : " + (locals.k_max['k']).toFixed(1) + "->" + (locals.k_max['total']).toFixed(3) : '' %> </span>
+                        <span id="cumulative"><%= (locals.k_max !== undefined) ? "Best K : " + (locals.k_max['k']).toFixed(1) + " -> " + ((locals.k_max['total']- 1) * 100).toFixed(3) : '' %> </span>
                     </div>
 
                     <div style="text-align: center; margin-top: 50px">
