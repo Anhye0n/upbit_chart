@@ -15,7 +15,7 @@ const last_date_func = date => {
     let first_date = date.split('-');
 
 
-    let before_date = new Date(first_date[0], first_date[1] - 1, first_date[2]);
+    let before_date = new Date(first_date[0], first_date[1], first_date[2]);
 
     console.log('Debug 1: ' + before_date);
 
