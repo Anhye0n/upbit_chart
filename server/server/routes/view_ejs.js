@@ -29,17 +29,22 @@ const last_date_func = date => {
     console.log('Debug 3: ' + before_date.getMonth());
     console.log('Debug 3: ' + before_date.getFullYear());
 
-    if ((before_date[1] - 1) < 10) {
-        before_date[1] = '0' + (before_date[1].trim()).toLocaleString()
+    let before_date_hap, before_date_hap_2
+
+    if ((before_date.getDate()) < 10) {
+        before_date_hap = '0' + before_date.getDate().toLocaleString()
+    }else{
+        before_date_hap = before_date.getMonth()
+    }
+
+    if ((before_date.getMonth()) < 10) {
+        before_date_hap_2 = '0' + before_date.getMonth().toLocaleString()
+    }else{
+        before_date_hap_2 = before_date.getMonth()
     }
 
 
-    if ((before_date[2]) < 10) {
-        before_date[2] = '0' + (before_date[2].trim()).toLocaleString()
-    }
-
-
-    return before_date.getFullYear() + '-' + before_date.getMonth() + '-' + before_date.getDate()
+    return before_date.getFullYear() + '-' + before_date_hap_2 + '-' + before_date_hap
 };
 
 router.get('/', (req, res) => {
