@@ -14,13 +14,18 @@ const past_candle_url = (coin_name, last_date) => {
 const last_date_func = date => {
     let first_date = date.split('-');
 
-    console.log('Debug : '+ first_date[0]);
 
-    let before_date = new Date(first_date[0], first_date[1] - 1, first_date[2])
+    let before_date = new Date(first_date[0], first_date[1] - 1, first_date[2]);
+
+    console.log('Debug 1: ' + before_date);
 
     before_date.setDate(before_date.getDate() - 1);
 
+    console.log('Debug 2: ' + before_date);
+
     before_date = before_date.toLocaleString().split('.')
+
+    console.log('Debug 3: ' + before_date);
 
     if ((before_date[1] - 1) < 10) {
         before_date[1] = '0' + (before_date[1].trim()).toLocaleString()
@@ -30,6 +35,7 @@ const last_date_func = date => {
         before_date[2] = '0' + (before_date[2].trim()).toLocaleString()
     }
 
+    console.log('Debug 4: ' + before_date);
     return before_date[0].trim() + '-' + before_date[1] + '-' + before_date[2].trim()
 };
 
