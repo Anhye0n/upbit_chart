@@ -27,42 +27,42 @@ app.use('/', view_router)
 // const api_router = require('./api/backtest')
 // app.use('/api', api_router)
 //
-// app.listen(80, () => {
-//     console.log(`Example app listening at 158.247.197.13`)
-// })
-
-app.get("*", (req, res, next) => {
-    console.log("req.secure == " + req.secure);
-
-    if (req.secure) {
-        // --- https
-        next();
-    } else {
-        // -- http
-        let to = "https://" + req.headers.host + req.url;
-        console.log("to ==> " + to);
-
-        return res.redirect("https://" + req.headers.host + req.url);
-    }
+app.listen(80, () => {
+    console.log(`Example app listening at 158.247.197.13`)
 })
-const http = require("http")
-const https = require("https")
-const fs = require("fs")
 
-let privateKey = fs.readFileSync("/etc/letsencrypt/live/anhye0n.me/privkey.pem")
-let certificate = fs.readFileSync("/etc/letsencrypt/live/anhye0n.me/cert.pem")
-let ca = fs.readFileSync("/etc/letsencrypt/live/anhye0n.me/chain.pem")
-const credentials = {key: privateKey, cert: certificate, ca: ca}
-
-// Starting both http & https servers
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
-
-httpServer.listen(80, () => {
-    console.log('HTTP Server running on port 80');
-});
-
-httpsServer.listen(443, () => {
-    console.log('HTTPS Server running on port 443');
-});
+// app.get("*", (req, res, next) => {
+//     console.log("req.secure == " + req.secure);
+//
+//     if (req.secure) {
+//         // --- https
+//         next();
+//     } else {
+//         // -- http
+//         let to = "https://" + req.headers.host + req.url;
+//         console.log("to ==> " + to);
+//
+//         return res.redirect("https://" + req.headers.host + req.url);
+//     }
+// })
+// const http = require("http")
+// const https = require("https")
+// const fs = require("fs")
+//
+// let privateKey = fs.readFileSync("/etc/letsencrypt/live/anhye0n.me/privkey.pem")
+// let certificate = fs.readFileSync("/etc/letsencrypt/live/anhye0n.me/cert.pem")
+// let ca = fs.readFileSync("/etc/letsencrypt/live/anhye0n.me/chain.pem")
+// const credentials = {key: privateKey, cert: certificate, ca: ca}
+//
+// // Starting both http & https servers
+// const httpServer = http.createServer(app);
+// const httpsServer = https.createServer(credentials, app);
+//
+// httpServer.listen(80, () => {
+//     console.log('HTTP Server running on port 80');
+// });
+//
+// httpsServer.listen(443, () => {
+//     console.log('HTTPS Server running on port 443');
+// });
 module.exports = app
