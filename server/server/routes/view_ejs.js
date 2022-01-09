@@ -59,6 +59,7 @@ router.get('/candles/history', (req, res) => {
         console.log('첫번째 :' + JSON.stringify(axios_res.data[0]))
         console.log('마지막 :' + JSON.stringify(axios_res.data[199]))
         console.log('---------------------------------------------------')
+        console.log('Debug :' + axios_res.data[199]['candle_date_time_kst'].substr(0, 10))
         axios.get(past_candle_url(coin_name, last_date_func(axios_res.data[199]['candle_date_time_kst'].substr(0, 10)))).then((axios_past_res) => {
 
             console.log('첫번째(과거 데이터) :' + JSON.stringify(axios_past_res.data[0]))
@@ -342,7 +343,7 @@ router.get('/candles/history/backtest/best_k', (req, res) => {
             // 얕은 복사, 깊은 복사의 차이
             let total_list = [...k_list];
 
-            total_list.sort(function(a, b) {
+            total_list.sort(function (a, b) {
                 return a.total - b.total;
             });
 
