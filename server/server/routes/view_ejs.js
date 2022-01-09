@@ -28,7 +28,7 @@ const last_date_func = date => {
         before_date[2] = '0' + (before_date[2].trim()).toLocaleString()
     }
 
-    return before_date[0].trim() + '-' + before_date[1] + '-' + before_date[2].trim()
+    return before_date[0].trim() + '-' + before_date[1] + '-' + before_date[2]
 };
 
 router.get('/', (req, res) => {
@@ -59,7 +59,6 @@ router.get('/candles/history', (req, res) => {
         console.log('첫번째 :' + JSON.stringify(axios_res.data[0]))
         console.log('마지막 :' + JSON.stringify(axios_res.data[199]))
         console.log('---------------------------------------------------')
-        console.log('Debug :' + axios_res.data[199]['candle_date_time_kst'].substr(0, 10))
         axios.get(past_candle_url(coin_name, last_date_func(axios_res.data[199]['candle_date_time_kst'].substr(0, 10)))).then((axios_past_res) => {
 
             console.log('첫번째(과거 데이터) :' + JSON.stringify(axios_past_res.data[0]))
