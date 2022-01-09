@@ -34,7 +34,7 @@ const last_date_func = date => {
     if ((before_date.getDate()) < 10) {
         before_date_hap = '0' + before_date.getDate().toLocaleString()
     } else {
-        before_date_hap = before_date.getMonth()
+        before_date_hap = before_date.getDate()
     }
 
     if ((before_date.getMonth()) < 10) {
