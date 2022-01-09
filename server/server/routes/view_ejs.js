@@ -28,7 +28,8 @@ const last_date_func = date => {
         before_date[2] = '0' + (before_date[2].trim()).toLocaleString()
     }
 
-    return before_date[0].trim() + '-' + before_date[1] + '-' + before_date[2]
+    console.log("debug : "+before_date[2])
+    return before_date[0].trim() + '-' + before_date[1] + '-' + before_date[2].trim()
 };
 
 router.get('/', (req, res) => {
