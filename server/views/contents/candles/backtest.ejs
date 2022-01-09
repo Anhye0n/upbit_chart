@@ -19,6 +19,7 @@
             <div id="board_view_box">
                 <% if (locals.market !== undefined && locals.count !== undefined) { %>
                     <a href="http://158.247.197.13/graph/custom/high_low?coin_name=<%= locals.market %>">고가, 저가 그래프</a>
+                    <span> | </span>
                     <a href="http://158.247.197.13/candles/history/backtest/best_k?coin_name=<%= locals.market %>&count=<%= locals.count %>">Best
                         K</a>
                 <% }else{ %>
