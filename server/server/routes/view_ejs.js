@@ -12,10 +12,9 @@ const past_candle_url = (coin_name, last_date) => {
 }
 
 const last_date_func = date => {
-    let first_date_ = date.split('-');
-    let first_date = [...first_date_]
+    let first_date = date.split('-');
 
-    console.log('Debug : '+ first_date);
+    console.log('Debug : '+ first_date[0]);
 
     let before_date = new Date(first_date[0], first_date[1] - 1, first_date[2])
 
