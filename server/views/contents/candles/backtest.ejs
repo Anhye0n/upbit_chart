@@ -18,12 +18,12 @@
             <p id="right_content">Today Time</p>
             <div id="board_view_box">
                 <% if (locals.market !== undefined && locals.count !== undefined) { %>
-                    <a href="http://localhost/graph/custom/high_low?coin_name=<%= locals.market %>">고가, 저가 그래프</a>
-                    <a href="http://localhost/candles/history/backtest/best_k?coin_name=<%= locals.market %>&count=<%= locals.count %>">Best
+                    <a href="http://158.247.197.13/graph/custom/high_low?coin_name=<%= locals.market %>">고가, 저가 그래프</a>
+                    <a href="http://158.247.197.13/candles/history/backtest/best_k?coin_name=<%= locals.market %>&count=<%= locals.count %>">Best
                         K</a>
                 <% }else{ %>
-                        <a href="http://localhost/graph/custom/high_low">고가, 저가 그래프</a>
-                        <a href="http://localhost/candles/history/backtest/best_k">Best K</a>
+                        <a href="http://158.247.197.13/graph/custom/high_low">고가, 저가 그래프</a>
+                        <a href="http://158.247.197.13/candles/history/backtest/best_k">Best K</a>
                 <% } %>
                 <div id="board_view_content_box">
                     <div style="text-align: center">
@@ -162,7 +162,7 @@
             let url = 'KRW-' + input.value.toUpperCase();
             let count = Number(input_count.value);
             let k = Number(val_k.value);
-            location.href = 'http://localhost/candles/history/backtest?coin_name=' + url + '&count=' + count + '&k=' + k
+            location.href = 'http://158.247.197.13/candles/history/backtest?coin_name=' + url + '&count=' + count + '&k=' + k
 
             console.log(url)
         }

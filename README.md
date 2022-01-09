@@ -53,7 +53,7 @@ const crypto = require('crypto')
 - DATETIME의 속성을 가진 값을 view에 출력하기 위해서 db정보에 dateStrings: 'date'를 추가해야됨.
 ```javascript
 let db_info = {
-host: 'localhost',
+host: '158.247.197.13',
 user: 'server_user',
 password: 'server_password',
 database: 'velog',
