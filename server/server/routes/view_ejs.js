@@ -33,16 +33,17 @@ const last_date_func = date => {
 
     if ((before_date.getDate()) < 10) {
         before_date_hap = '0' + before_date.getDate().toLocaleString()
-    }else{
+    } else {
         before_date_hap = before_date.getMonth()
     }
 
     if ((before_date.getMonth()) < 10) {
         before_date_hap_2 = '0' + before_date.getMonth().toLocaleString()
-    }else{
+    } else {
         before_date_hap_2 = before_date.getMonth()
     }
 
+    console.log("Debug :" + before_date_hap, before_date_hap_2)
 
     return before_date.getFullYear() + '-' + before_date_hap_2 + '-' + before_date_hap
 };
@@ -358,7 +359,7 @@ router.get('/candles/history/backtest/best_k', (req, res) => {
             // 얕은 복사, 깊은 복사의 차이
             let total_list = [...k_list];
 
-            total_list.sort(function(a, b) {
+            total_list.sort(function (a, b) {
                 return a.total - b.total;
             });
 
