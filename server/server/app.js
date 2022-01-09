@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express()
 
-app.disable('x-powered-by')
+// app.disable('x-powered-by')
 
 //모듈
 const path = require('path'), favicon = require('serve-favicon')
