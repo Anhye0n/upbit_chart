@@ -23,9 +23,11 @@ const last_date_func = date => {
 
     console.log('Debug 2: ' + before_date);
 
-    before_date = before_date.toLocaleString().split('/')
+    before_date = before_date.toLocaleString().split(',')
 
-    console.log('Debug 3: ' + before_date);
+    console.log('Debug 3: ' + before_date.getDate());
+    console.log('Debug 3: ' + before_date.getMonth());
+    console.log('Debug 3: ' + before_date.getFullYear());
 
     if ((before_date[1] - 1) < 10) {
         before_date[1] = '0' + (before_date[1].trim()).toLocaleString()
