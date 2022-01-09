@@ -343,7 +343,7 @@ router.get('/candles/history/backtest/best_k', (req, res) => {
 
                     } else {
                         ror = (candles_history[i]['high_price'] > target) ? (candles_history[i]['trade_price'] / target - fee).toFixed(6) : 1;
-                        total *= Number(ror)
+                        total *= ror
                     }
                 }
 
