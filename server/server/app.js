@@ -2,6 +2,27 @@ const helmet = require('helmet');
 const express = require('express');
 const app = express()
 app.use(helmet());
+
+app.use(csp({
+    directives: {
+        defaultSrc: 'http://158.247.197.13/',
+        scriptSrc: 'http://158.247.197.13/',
+        imgSrc: ['http://158.247.197.13/', '사용하는 이미지 CDN경로', 'img.icons8.com'],
+        styleSrc: ['http://158.247.197.13/',
+            '*.fontawesome.com',
+            '*.jsdelivr.net',
+            '*.api.upbit.com',
+            '*.upbit.com',
+            '*.fonts.googleapis.com'],
+        fontSrc: [
+            '*.googleapis.com',
+            '*.jsdelivr.net',
+            '*.api.upbit.com',
+            '*.upbit.com',
+            '*.fontawesome.com'
+        ]
+    }
+}))
 //모듈
 const path = require('path'), favicon = require('serve-favicon')
 
