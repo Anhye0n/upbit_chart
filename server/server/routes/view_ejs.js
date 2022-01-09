@@ -39,7 +39,7 @@ const last_date_func = date => {
     }
 
 
-    return before_date[0].trim() + '-' + before_date[1] + '-' + before_date[2].trim()
+    return before_date.getFullYear() + '-' + before_date.getMonth() + '-' + before_date.getDate()
 };
 
 router.get('/', (req, res) => {
