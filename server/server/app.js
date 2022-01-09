@@ -1,9 +1,7 @@
-const helmet = require('helmet');
 const express = require('express');
 const app = express()
-app.use(helmet({
-    contentSecurityPolicy: false,
-}));
+
+app.disable('x-powered-by')
 
 //모듈
 const path = require('path'), favicon = require('serve-favicon')
