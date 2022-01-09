@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/src/css/main.css">
+    <link rel="stylesheet" href="/src/css/font.css">
+    <link rel="stylesheet" href="/src/css/contents.css">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+</head>
+<body>
+<div id="index_box">
+    <%- include('../common/left_menu') %>
+    <div id="box_right">
+        <div id="box_right_padding">
+            <i id="menu_open" onclick="menu_open()" class="fas fa-bars"></i>
+            <p id="right_title">Calculator</p>
+            <p id="right_content">Today Time</p>
+            <div id="board_view_box">
+                <div id="board_view_content_box">
+                    <!--json.stringfy 줄바꿈 안먹힐 때 null, 2 값 먹여주기-->
+                    <div id="board_view_content">
+                        <div>
+                            <div style="text-align: center">
+                                <input id="first_value" class="calculator_input" type="number" onkeyup="percent()">의
+                                <input
+                                        id="second_value" class="calculator_input" type="number" onkeyup="percent()">% 의
+                                곱<input
+                                        id="third_value" class="calculator_input" type="number" onkeyup="percent()">
+                            </div>
+                            <div style="text-align: center; margin-top: 50px">
+                                <p class="calculator_p"><span id="result"></span> 원</p>
+                                <table id="calculator_table">
+                                    <tr>
+                                        <th><p class="calculator_p">(1 수량) 원금 + 수익</p></th>
+                                        <td style="padding-right: 20px"> :</td>
+                                        <td><span id="result_hap">0</span> 원</td>
+                                    </tr>
+                                    <tr>
+                                        <th><p class="calculator_p">곱</p></th>
+                                        <td style="padding-right: 20px"> :</td>
+                                        <td><span id="result_gop">1</span> 원</td>
+                                    </tr>
+                                    <tr>
+                                        <th><p class="calculator_p">(원금 + 수익) * 곱(수수로) </p></th>
+                                        <td style="padding-right: 20px"> :</td>
+                                        <td><span id="result_hap_fee">0</span> 원</td>
+                                    </tr>
+                                    <tr></tr>
+                                </table>
+                            </div>
+                        </div>
+                        <hr style="margin-top: 30px; margin-bottom: 80px">
+                        <div>
+                            <div style="text-align: center">
+                                <input id="first_percent_value" class="calculator_input" type="number"
+                                       onkeyup="sec_percent()">의
+                                <input
+                                        id="second_percent_value" class="calculator_input" type="number"
+                                        onkeyup="sec_percent()">는
+                                몇 %
+                            </div>
+                            <div style="text-align: center; margin-top: 50px">
+                                <p class="calculator_p"><span id="result_sec">0</span> %</p>
+                                <p class="calculator_p"><span id="sec_percent">0</span> 원이 <span
+                                            id="sec_percent2">0</span>
+                                    원이 될려면 <span id="result_sec_reverse">0</span> %</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    function percent() {
+        let first = Number(document.getElementById('first_value').value)
+        let second = Number(document.getElementById('second_value').value)
+        let third = Number(document.getElementById('third_value').value)
+
+
+        let sum = first * (second / 100)
+
+        document.getElementById('result').innerText = String(Math.round(sum)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        document.getElementById('result_gop').innerText = String(Math.round(sum * third)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        document.getElementById('result_hap').innerText = String(Math.round(sum + first)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        document.getElementById('result_hap_fee').innerText = String(Math.round((sum * third) - ((sum * third) * 0.05))).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function sec_percent() {
+        let first = Number(document.getElementById('first_percent_value').value)
+        let second = Number(document.getElementById('second_percent_value').value)
+        let sec_percent = Number(document.getElementById('sec_percent').value)
+        let sec_percent2 = Number(document.getElementById('sec_percent2').value)
+
+        document.getElementById('result_sec').innerText = String(((second * 100) / first).toFixed(2)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        document.getElementById('result_sec_reverse').innerText = String((100 - (second * 100) / first).toFixed(2)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+
+        document.getElementById('sec_percent2').innerText = String(first).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+        document.getElementById('sec_percent').innerText = String(second).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+    }
+</script>
+
+<script type="text/javascript" src="/src/js/main.js"></script>
+</html>

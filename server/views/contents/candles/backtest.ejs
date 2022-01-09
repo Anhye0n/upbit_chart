@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/src/css/main.css">
+    <link rel="stylesheet" href="/src/css/font.css">
+    <link rel="stylesheet" href="/src/css/contents.css">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+</head>
+<body>
+<div id="index_box">
+    <%- include('../../common/left_menu') %>
+    <div id="box_right">
+        <div id="box_right_padding">
+            <i id="menu_open" onclick="menu_open()" class="fas fa-bars"></i>
+            <p id="right_title"><%= (locals.market !== undefined) ? "BACKTESTING / " + locals.market : "BACKTESTING" %></p>
+            <p id="right_content">Today Time</p>
+            <div id="board_view_box">
+                <% if (locals.market !== undefined && locals.count !== undefined) { %>
+                    <a href="http://localhost/graph/custom/high_low?coin_name=<%= locals.market %>">고가, 저가 그래프</a>
+                    <a href="http://localhost/candles/history/backtest/best_k?coin_name=<%= locals.market %>&count=<%= locals.count %>">Best
+                        K</a>
+                <% }else{ %>
+                        <a href="http://localhost/graph/custom/high_low">고가, 저가 그래프</a>
+                        <a href="http://localhost/candles/history/backtest/best_k">Best K</a>
+                <% } %>
+                <div id="board_view_content_box">
+                    <div style="text-align: center">
+                        <span id="krw">krw -</span> <input type="text" class="custom_candles_input"
+                                                           placeholder="Ex) BTC" <%= (locals.market !== undefined) ? "value=" + locals.market.substring(4,) : "" %>
+                                                           autofocus/>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px">
+                        <span id="count">COUNT : </span> <input type="text" class="custom_candles_input"
+                                                                placeholder="Ex) 200" <%= (locals.count !== undefined) ? "value=" + locals.count : "" %>
+                                                                autofocus/>
+                    </div>
+                    <div style="text-align: center; margin-top: 20px">
+                        <span id="k">K : </span> <input id="enter" type="text" class="custom_candles_input"
+                                                        placeholder="Ex) 0.5" <%= (locals.k !== undefined) ? "value=" + locals.k : "" %>
+                                                        autofocus/>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px">
+                        <span id="cumulative"><%= (locals.cumulative !== undefined) ? "누적 수익률 : " + ((locals.cumulative - 1) * 100).toFixed(4) + '%' : '' %></span>
+                    </div>
+
+
+                    <div>
+                        <button class="move_button"
+                                onclick="window.scrollTo(0, document.querySelector('body').scrollHeight);">아래로 이동
+                        </button>
+                    </div>
+                    <!--json.stringfy 줄바꿈 안먹힐 때 null, 2 값 먹여주기-->
+                    <% if(locals.history !== undefined){ %>
+
+                        <table id="board_view_table">
+                            <thead>
+                            <tr id="board_head">
+                                <!--<th class="right_border">Count</th>-->
+                                <th class="right_border">Date</th>
+                                <th class="left_row">Opening price</th>
+                                <th class="left_row">High price</th>
+                                <th class="left_row">Low price</th>
+                                <th class="left_row">Trade price</th>
+                                <th class="left_row testing">Range</th>
+                                <th class="left_row testing">Target</th>
+                                <th class="left_row testing">ror</th>
+                                <th class="left_row testing">누적</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% var k = (locals.k !== undefined) ? (locals.k) : 0.5 %>
+                            <% var total = 1 %>
+                            <% for (var i = 0; i < history.length; i++) { %>
+                                <tr id="board_row">
+                                    <!--<td class="right_border"><%= /*i + 1*/ %></td>-->
+                                    <td class="right_border"><%= JSON.stringify(history[i]['candle_date_time_kst']).replace(/"/gi, "").replace("T", ' / ').substr(0, 10) %></td>
+                                    <td class="right_row"><%= JSON.stringify(history[i]['opening_price']).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); %></td>
+                                    <td class="right_row"
+                                        style="font-weight: bold"><%= JSON.stringify(history[i]['high_price']).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); %></td>
+                                    <td class="right_row"><%= JSON.stringify(history[i]['low_price']).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); %></td>
+                                    <td class="right_row"><%= JSON.stringify(history[i]['trade_price']).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); %></td>
+
+                                    <% /*range*/ %>
+
+                                    <% var Range = JSON.stringify(Math.round((history[i]['high_price'] - history[i]['low_price']) * k)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); %>
+                                    <td class="right_row"><%= Range %></td>
+
+                                    <% /*target*/ %>
+                                    <% if (i === 0) { %>
+                                        <td class="right_row"><%= 0 %></td>
+                                        <% var target = 0 %>
+
+                                    <% } else { %>
+                                        <% var target = Math.round(((history[i - 1]['high_price'] - history[i - 1]['low_price']) * k) + history[i]['opening_price']) %>
+                                        <td class="right_row"
+                                            style="font-weight: bold"><%= JSON.stringify(target).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") %></td>
+                                    <% } %>
+
+                                    <% /*ror*/ %>
+                                    <% if (i === 0) { %>
+                                        <td class="right_row"><%= 1 %></td>
+
+                                    <% } else { %>
+                                        <% var ror = (history[i]['high_price'] > target) ? (history[i]['trade_price'] / target - locals.fee).toFixed(6) : 1 %>
+                                        <td class="right_row"
+                                            style="font-weight: bold"><%= (ror !== 1) ? ((ror - 1) * 100).toFixed(2) : ror %>
+                                            %
+                                        </td>
+                                        <% total *= Number(ror) %>
+                                    <% } %>
+
+                                    <% /*누적*/ %>
+                                    <% if (i === 0) { %>
+                                        <td class="right_row"><%= 1 %></td>
+
+                                    <% } else { %>
+                                        <td class="right_row"
+                                            style="font-weight: bold"><%= ((total - 1) * 100).toFixed(3) %> %
+                                        </td>
+                                    <% } %>
+                                </tr>
+
+                            <% } %>
+                            </tbody>
+                            <tr id="board_bottom">
+                                <!--<th class="right_border">Count</th>-->
+                                <th class="right_border">Date</th>
+                                <th class="left_row">Opening price</th>
+                                <th class="left_row">High price</th>
+                                <th class="left_row">Low price</th>
+                                <th class="left_row">Trade price</th>
+                                <th class="left_row testing">Range</th>
+                                <th class="left_row testing">Target</th>
+                                <th class="left_row testing">ror</th>
+                                <th class="left_row testing">누적</th>
+
+
+                            </tr>
+                        </table>
+                    <% } else{ %>
+
+                    <% } %>
+                    <div>
+                        <button class="move_button" onclick="window.scrollTo(0, 0);">위로 이동</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    let input = document.getElementsByClassName('custom_candles_input')[0];
+    let input_count = document.getElementsByClassName('custom_candles_input')[1];
+    let val_k = document.getElementById('enter');
+
+    val_k.addEventListener('keypress', function (key) {
+        if (key.key === 'Enter') {
+            let url = 'KRW-' + input.value.toUpperCase();
+            let count = Number(input_count.value);
+            let k = Number(val_k.value);
+            location.href = 'http://localhost/candles/history/backtest?coin_name=' + url + '&count=' + count + '&k=' + k
+
+            console.log(url)
+        }
+    })
+</script>
+<script type="text/javascript" src="/src/js/main.js"></script>
+
+</html>

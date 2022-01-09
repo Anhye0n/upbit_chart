@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/src/css/main.css">
+    <link rel="stylesheet" href="/src/css/font.css">
+    <link rel="stylesheet" href="/src/css/contents.css">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+</head>
+<body>
+<div id="index_box">
+    <%- include('../../common/left_menu') %>
+    <div id="box_right" style="<%= (market !== 'KRW-SAND') ? "height: 17000px" : "height: 14000px" %>">
+        <div id="box_right_padding">
+            <i id="menu_open" onclick="menu_open()" class="fas fa-bars"></i>
+            <p id="right_title"><%= market %></p>
+            <p id="right_content">Today Time</p>
+            <div id="board_view_box">
+                <a href="http://localhost/graph/custom/high_low?coin_name=<%= market %>">고가, 저가 그래프</a>
+                <div id="board_view_content_box">
+                    <div>
+                        <button class="move_button"
+                                onclick="window.scrollTo(0, document.querySelector('body').scrollHeight);">아래로 이동
+                        </button>
+                    </div>
+                    <!--json.stringfy 줄바꿈 안먹힐 때 null, 2 값 먹여주기-->
+                    <table id="board_view_table">
+                        <thead>
+                        <tr id="board_head">
+                            <!--<th class="right_border">Count</th>-->
+                            <th class="right_border">Date</th>
+                            <th class="left_row">Opening price</th>
+                            <th class="left_row">High price</th>
+                            <th class="left_row">Low price</th>
+                            <th class="left_row">Trade price</th>
+                            <th class="left_row testing">Range</th>
+                            <th class="left_row testing">Target</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <% var k = 0.5 %>
+                        <% for (var i = 0; i < history.length; i++) { %>
+                            <tr id="board_row">
+                                <!--<td class="right_border"><%= /*i + 1*/ %></td>-->
+                                <td class="right_border"><%= JSON.stringify(history[i]['candle_date_time_kst']).replace(/"/gi, "").replace("T", ' / ') %></td>
+                                <td class="right_row"><%= JSON.stringify(history[i]['opening_price']).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); %></td>
+                                <td class="right_row"
+                                    style="font-weight: bold"><%= JSON.stringify(history[i]['high_price']).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); %></td>
+                                <td class="right_row"><%= JSON.stringify(history[i]['low_price']).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); %></td>
+                                <td class="right_row"><%= JSON.stringify(history[i]['trade_price']).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); %></td>
+                                <% if (i === 0) { %>
+                                    <td class="right_row"><%= 0 %></td>
+                                <% } else { %>
+                                    <td class="right_row"><%= JSON.stringify(Math.round((history[i - 1]['high_price'] - history[i - 1]['low_price']) * k)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); %></td>
+                                <% } %>
+                                <% if (i === 0) { %>
+                                    <td class="right_row"><%= 0 %></td>
+                                <% } else { %>
+                                    <td class="right_row"
+                                        style="font-weight: bold"><%= JSON.stringify(Math.round(((history[i - 1]['high_price'] - history[i - 1]['low_price']) * k) + history[i]['opening_price'])).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","); %></td>
+                                <% } %>
+                            </tr>
+
+                        <% } %>
+                        </tbody>
+                        <tr id="board_bottom">
+                            <!--<th class="right_border">Count</th>-->
+                            <th class="right_border">Date</th>
+                            <th class="left_row">Opening price</th>
+                            <th class="left_row">High price</th>
+                            <th class="left_row">Low price</th>
+                            <th class="left_row">Trade price</th>
+                            <th class="left_row testing">Range</th>
+                            <th class="left_row testing">Target</th>
+                        </tr>
+                    </table>
+                    <div>
+                        <button class="move_button" onclick="window.scrollTo(0, 0);">위로 이동</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/src/js/main.js"></script>
+</html>

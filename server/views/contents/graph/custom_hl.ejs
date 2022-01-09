@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/src/css/main.css">
+    <link rel="stylesheet" href="/src/css/font.css">
+    <link rel="stylesheet" href="/src/css/contents.css">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+<div id="index_box">
+    <%- include('../../common/left_menu') %>
+    <div id="box_right" style="<%= (locals.market !== 'KRW-SAND') ? "height: 1200px" : "height: 1200px" %>">
+        <div id="box_right_padding">
+            <i id="menu_open" onclick="menu_open()" class="fas fa-bars"></i>
+            <p id="right_title"><%= (locals.market !== undefined) ? "C U S T O M / " + locals.market : "C U S T O M" %></p>
+            <p id="right_content">Today Time</p>
+            <div id="board_view_box">
+                <div id="board_view_content_box">
+                    <div style="text-align: center">
+                        <span id="krw">krw -</span> <input type="text" class="custom_candles_input"
+                                                           value="<%= (locals.market !== undefined) ? locals.market.replace('KRW-','') : ""%>"
+                                                           placeholder="Ex) BTC" autofocus/>
+                    </div>
+
+                    <!--json.stringfy 줄바꿈 안먹힐 때 null, 2 값 먹여주기-->
+                    <% if(locals.history !== undefined){ %>
+                        <% var best_high = 0 %>
+                        <% var best_low = 99999999999 %>
+                        <% var count_start = history.length - 30 %>
+                        <% var count = history.length %>
+
+                        <% for(var a = count_start; a < count; a++){ %>
+                            <% if (best_high < Number(history[a]['high_price'])) { %>
+                                <% best_high = Number(history[a]['high_price']) %>
+                                <% console.log(best_high) %>
+                            <% } %>
+
+                            <% if (best_low > Number(history[a]['low_price'])) { %>
+                                <% best_low = Number(history[a]['low_price']) %>
+                                <% console.log(best_low) %>
+                            <% } %>
+                        <% } %>
+                        <div id="chart" style="margin-top: 20px"></div>
+                        <script type="text/javascript">
+                            let options = {
+                                series: [
+                                    {
+                                        name: "High",
+
+                                        data: [<% for(var a = count_start; a < count; a++){ %>
+                                            <%= Number(history[a]['high_price']) %>,
+                                            <% } %>]
+                                    },
+                                    {
+                                        name: "Low",
+                                        data: [<% for(var k = count_start; k < count; k++){ %>
+                                            <%= Number(history[k]['low_price']) %>,
+                                            <% } %>]
+                                    }
+                                ],
+                                chart: {
+                                    height: 650,
+                                    type: 'line',
+                                    dropShadow: {
+                                        enabled: true,
+                                        color: '#000',
+                                        top: 18,
+                                        left: 7,
+                                        blur: 10,
+                                        opacity: 0.2
+                                    },
+                                    toolbar: {
+                                        show: true
+                                    }
+                                },
+                                colors: ['#D24F45', '#1261C4'],
+                                dataLabels: {
+                                    enabled: false,
+                                },
+                                stroke: {
+                                    curve: 'straight'
+                                },
+                                title: {
+                                    text: '<%= market %> High & Low',
+                                    align: 'left'
+                                },
+                                grid: {
+                                    borderColor: '#ffffff',
+                                    row: {
+                                        colors: ['#dcefe1', '#ffffff'], // takes an array which will be repeated on columns
+                                        opacity: 1
+                                    },
+                                },
+                                markers: {
+                                    size: 1
+                                },
+                                xaxis: {
+                                    categories: [<% for(var j = count_start; j < count; j++){ %>
+                                        "<%= JSON.stringify(history[j]['candle_date_time_kst']).replace(/"/gi, "").replace("T", ' / ').substr(0, 10) %>",
+                                        <% } %>],
+                                    title: {
+                                        text: 'Days'
+                                    }
+                                },
+                                yaxis: {
+                                    title: {
+                                        text: 'Price (Won)'
+                                    },
+                                    min: <%= best_low - (best_low / 20) %>,
+                                    max: <%= best_high + (best_high / 20) %>
+                                },
+                                legend: {
+                                    position: 'top',
+                                    horizontalAlign: 'right',
+                                    floating: true,
+                                    offsetY: -25,
+                                    offsetX: -5
+                                }
+                            };
+
+                            let chart = new ApexCharts(document.querySelector("#chart"), options);
+                            chart.render();
+                        </script>
+
+                    <% } else{ %>
+                        <div id="chart" style="margin-top: 20px"></div>
+                        <script type="text/javascript">
+                            let options = {
+                                series: [
+                                    {
+                                        name: "High",
+
+                                        data: [0]
+                                    },
+                                    {
+                                        name: "Low",
+                                        data: [0]
+                                    }
+                                ],
+                                chart: {
+                                    height: 650,
+                                    type: 'line',
+                                    dropShadow: {
+                                        enabled: true,
+                                        color: '#000',
+                                        top: 18,
+                                        left: 7,
+                                        blur: 10,
+                                        opacity: 0.2
+                                    },
+                                    toolbar: {
+                                        show: true
+                                    }
+                                },
+                                colors: ['#D24F45', '#1261C4'],
+                                dataLabels: {
+                                    enabled: false,
+                                },
+                                stroke: {
+                                    curve: 'straight'
+                                },
+                                title: {
+                                    text: 'High & Low',
+                                    align: 'left'
+                                },
+                                grid: {
+                                    borderColor: '#ffffff',
+                                    row: {
+                                        colors: ['#dcefe1', '#ffffff'], // takes an array which will be repeated on columns
+                                        opacity: 1
+                                    },
+                                },
+                                markers: {
+                                    size: 1
+                                },
+                                xaxis: {
+                                    categories: ['None'],
+                                    title: {
+                                        text: 'Days'
+                                    }
+                                },
+                                yaxis: {
+                                    title: {
+                                        text: 'Price'
+                                    },
+                                    min: 0 %>,
+                                    max: 10000000 %>
+                                },
+                                legend: {
+                                    position: 'top',
+                                    horizontalAlign: 'right',
+                                    floating: true,
+                                    offsetY: -25,
+                                    offsetX: -5
+                                }
+                            };
+
+                            let chart = new ApexCharts(document.querySelector("#chart"), options);
+                            chart.render();
+                        </script>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    let input = document.getElementsByClassName('custom_candles_input')[0];
+    input.addEventListener('keypress', function (key) {
+        if (key.key === 'Enter') {
+            let url = 'KRW-' + input.value.toUpperCase();
+            location.href = 'http://localhost/graph/custom/high_low?coin_name=' + url
+
+            console.log(url)
+        }
+    })
+</script>
+<script type="text/javascript" src="/src/js/main.js"></script>
+</html>

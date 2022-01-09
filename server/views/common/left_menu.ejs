@@ -1,0 +1,35 @@
+<div id="box_left">
+    <div id="left_top_title">
+        <img src="/src/img/logo.png" alt="">
+        <p><span id="anhye0n">AnHye0n</p>
+    </div>
+    <div id="user_info">
+        <% if (locals.user){ %>
+            <p id="user_info_name"><span><%= user.name %></span> 님</p>
+            <p id="user_info_email"><%= user.email %></p>
+        <% }else{ %>
+            <p id="user_info_name"><span>안정현</span> 님</p>
+            <p id="user_info_email">Upbit Trading System</p>
+        <% } %>
+    </div>
+
+    <div id="left_div">
+        <ul>
+            <li class="left_menu"><a href="http://localhost/candles">전체 정보</a></li>
+            <li class="left_menu"><a href="http://localhost/graph/custom/high_low">그래프</a></li>
+            <li class="left_menu"><a href="http://localhost/calculator">계산기</a></li>
+            <li class="left_menu"><i id="menu_close" class="fas fa-times" onclick="menu_close()"></i></li>
+        </ul>
+    </div>
+    <hr style="width: 60%; height:0; border:0; border-top:1px solid #c2c2c2;">
+
+    <div id="search_box">
+        <input type="text" id="search" placeholder="Search"><i id="search_icon" class="fas fa-search"></i>
+    </div>
+    <div id="left_botton_icon">
+        <i id="github_icon" class="fab fa-github" onclick="window.open('https://github.com/AnHye0n')"></i>
+        <i id="email_icon" class="far fa-envelope" title="ajhrc08070@gmail.com"></i>
+    </div>
+
+    <p id="copyright">© 2021. AnJeongHyeon All rights reserved.</p>
+</div>
