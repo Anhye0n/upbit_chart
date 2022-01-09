@@ -25,17 +25,19 @@ const last_date_func = date => {
 
     before_date = before_date.toLocaleString().split('.')
 
-    console.log('Debug 3: ' + before_date);
 
     if ((before_date[1] - 1) < 10) {
         before_date[1] = '0' + (before_date[1].trim()).toLocaleString()
     }
 
+    console.log('Debug 3: ' + before_date[1]);
+
     if ((before_date[2]) < 10) {
         before_date[2] = '0' + (before_date[2].trim()).toLocaleString()
     }
 
-    console.log('Debug 4: ' + before_date);
+    console.log('Debug 4: ' + before_date[2]);
+
     return before_date[0].trim() + '-' + before_date[1] + '-' + before_date[2].trim()
 };
 
