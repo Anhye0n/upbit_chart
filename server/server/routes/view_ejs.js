@@ -23,7 +23,7 @@ const last_date_func = date => {
 
     console.log('Debug 2: ' + before_date);
 
-    before_date = before_date.toLocaleString().split(',')
+    // before_date = before_date.toLocaleString().split(',')
 
     console.log('Debug 3: ' + before_date.getDate());
     console.log('Debug 3: ' + before_date.getMonth());
