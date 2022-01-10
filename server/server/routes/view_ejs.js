@@ -25,10 +25,6 @@ const last_date_func = date => {
 
     // before_date = before_date.toLocaleString().split(',')
 
-    console.log('Debug 3: ' + before_date.getDate());
-    console.log('Debug 3: ' + before_date.getMonth());
-    console.log('Debug 3: ' + before_date.getFullYear());
-
     let before_date_hap, before_date_hap_2
 
     if ((before_date.getDate()) < 10) {
@@ -42,8 +38,6 @@ const last_date_func = date => {
     } else {
         before_date_hap_2 = before_date.getMonth()
     }
-
-    console.log("Debug :" + before_date_hap, before_date_hap_2)
 
     return before_date.getFullYear() + '-' + before_date_hap_2 + '-' + before_date_hap
 };
