@@ -356,7 +356,7 @@ router.get('/candles/history/backtest/best_k', (req, res) => {
                 return a.total - b.total;
             });
 
-            console.log('max : ' + max)
+            console.log('max : ' + JSON.stringify(max))
 
 
             res.render('./contents/candles/best_k', {
