@@ -319,7 +319,6 @@ router.get('/candles/history/backtest/best_k', (req, res) => {
 
             for (let a = 0; a < 9; a++) {
 
-                console.log('k 값 : ', k.toFixed(1))
                 let target;
                 let ror;
                 let total = 1;
@@ -349,7 +348,7 @@ router.get('/candles/history/backtest/best_k', (req, res) => {
                 k += 0.1
             }
 
-            console.log('k_list : ' + k_list)
+            console.log('k_list : ' + JSON.stringify(k_list))
             // 얕은 복사, 깊은 복사의 차이
             let total_list = [...k_list];
 
