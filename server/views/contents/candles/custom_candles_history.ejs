@@ -18,7 +18,7 @@
             <p id="right_title"><%= (locals.market !== undefined) ? "C U S T O M / "+locals.market : "C U S T O M" %></p>
             <p id="right_content">Today Time</p>
             <div id="board_view_box">
-                <a href="http://158.247.197.13/graph/custom/high_low?coin_name=<%= locals.market %>">고가, 저가 그래프</a>
+                <a href="http://anhye0n.com/graph/custom/high_low?coin_name=<%= locals.market %>">고가, 저가 그래프</a>
 
                 <div id="board_view_content_box">
                     <div style="text-align: center">
@@ -97,7 +97,7 @@
     input.addEventListener('keypress', function (key) {
         if (key.key === 'Enter') {
             let url = 'KRW-'+input.value.toUpperCase();
-            location.href = 'http://158.247.197.13/candles/custom/history?coin_name=' + url
+            location.href = 'http://anhye0n.com/candles/custom/history?coin_name=' + url
 
             console.log(url)
         }
