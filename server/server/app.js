@@ -21,18 +21,6 @@ app.use('/src', express.static(path.join(__dirname, '../src')))
 app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'ejs') //ejs 사용
 
-//views 파일 라우터
-const view_router = require('./routes/view_ejs')
-app.use('/', view_router)
-
-//api 파일 라우터
-// const api_router = require('./api/backtest')
-// app.use('/api', api_router)
-//
-// app.listen(80, () => {
-//     console.log(`Example app listening at 158.247.197.13`)
-// })
-
 app.get("*", (req, res, next) => {
     console.log("req.secure == " + req.secure);
 
@@ -47,6 +35,20 @@ app.get("*", (req, res, next) => {
         return res.redirect("https://" + req.headers.host + req.url);
     }
 })
+
+//views 파일 라우터
+const view_router = require('./routes/view_ejs')
+app.use('/', view_router)
+
+//api 파일 라우터
+// const api_router = require('./api/backtest')
+// app.use('/api', api_router)
+//
+// app.listen(80, () => {
+//     console.log(`Example app listening at 158.247.197.13`)
+// })
+
+
 const http = require("http")
 const https = require("https")
 const fs = require("fs")
