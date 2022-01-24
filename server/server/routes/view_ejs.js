@@ -57,11 +57,14 @@ router.get('/candles', (req, res) => {
     res.render('./contents/candles/all_candles')
 })
 
+// router.get('/GRG_Project', (req, res) => {
+//
+//     res.render('./GRG_Project/GRGloginform')
+// })
 router.get('/GRG_Project', (req, res) => {
 
-    res.render('./GRG_Project/GRGloginform')
+    res.render('./GRG_Project/Login')
 })
-
 router.get('/candles/history', (req, res) => {
     let coin_name = req.query.coin_name
 
