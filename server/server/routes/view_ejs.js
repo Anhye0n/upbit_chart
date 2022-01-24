@@ -57,10 +57,10 @@ router.get('/candles', (req, res) => {
     res.render('./contents/candles/all_candles')
 })
 
-// router.get('/GRG_Project', (req, res) => {
-//
-//     res.render('./GRG_Project/GRGloginform')
-// })
+router.get('/history/GRG_Project', (req, res) => {
+
+    res.render('./back/GRGloginform')
+})
 router.get('/GRG_Project', (req, res) => {
 
     res.render('./GRG_Project/Login')
