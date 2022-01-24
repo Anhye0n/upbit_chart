@@ -59,7 +59,7 @@ router.get('/candles', (req, res) => {
 
 router.get('/history/GRG_Project', (req, res) => {
 
-    res.render('./back/GRGloginform')
+    res.render('./GRG_Project/back/GRGloginform')
 })
 router.get('/GRG_Project', (req, res) => {
 
