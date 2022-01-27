@@ -21,20 +21,20 @@ app.use('/src', express.static(path.join(__dirname, '../src')))
 app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'ejs') //ejs 사용
 
-// app.get("*", (req, res, next) => {
-//     console.log("req.secure == " + req.secure);
-//
-//     if (req.secure) {
-//         // --- https
-//         next();
-//     } else {
-//         // -- http
-//         let to = "https://" + req.headers.host + req.url;
-//         console.log("to ==> " + to);
-//
-//         return res.redirect("https://" + req.headers.host + req.url);
-//     }
-// })
+app.get("*", (req, res, next) => {
+    console.log("req.secure == " + req.secure);
+
+    if (req.secure) {
+        // --- https
+        next();
+    } else {
+        // -- http
+        let to = "https://" + req.headers.host + req.url;
+        console.log("to ==> " + to);
+
+        return res.redirect("https://" + req.headers.host + req.url);
+    }
+})
 
 //views 파일 라우터
 const view_router = require('./routes/view_ejs')
