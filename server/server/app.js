@@ -44,29 +44,29 @@ app.use('/', view_router)
 // const api_router = require('./api/backtest')
 // app.use('/api', api_router)
 //
-// app.listen(80, () => {
-//     console.log(`Example app listening at anhye0n.com`)
-// })
+app.listen(80, () => {
+    console.log(`Example app listening at anhye0n.com`)
+})
 
 
-const http = require("http")
-const https = require("https")
-const fs = require("fs")
+// const http = require("http")
+// const https = require("https")
+// const fs = require("fs")
+//
+// let privateKey = fs.readFileSync("/etc/letsencrypt/live/anhye0n.com/privkey.pem")
+// let certificate = fs.readFileSync("/etc/letsencrypt/live/anhye0n.com/cert.pem")
+// let ca = fs.readFileSync("/etc/letsencrypt/live/anhye0n.com/chain.pem")
+// const credentials = {key: privateKey, cert: certificate, ca: ca}
+//
+// // Starting both http & https servers
+// const httpServer = http.createServer(app);
+// const httpsServer = https.createServer(credentials, app);
 
-let privateKey = fs.readFileSync("/etc/letsencrypt/live/anhye0n.com/privkey.pem")
-let certificate = fs.readFileSync("/etc/letsencrypt/live/anhye0n.com/cert.pem")
-let ca = fs.readFileSync("/etc/letsencrypt/live/anhye0n.com/chain.pem")
-const credentials = {key: privateKey, cert: certificate, ca: ca}
-
-// Starting both http & https servers
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
-
-httpServer.listen(80, () => {
-    console.log('HTTP Server running on port 80');
-});
-
-httpsServer.listen(443, () => {
-    console.log('HTTPS Server running on port 443');
-});
+// httpServer.listen(80, () => {
+//     console.log('HTTP Server running on port 80');
+// });
+//
+// httpsServer.listen(443, () => {
+//     console.log('HTTPS Server running on port 443');
+// });
 module.exports = app
