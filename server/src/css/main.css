@@ -18,6 +18,19 @@ input:-webkit-autofill:focus {
     -webkit-box-shadow: 0 0 0 50px white inset;
 }
 
+body::-webkit-scrollbar {
+    width: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #686868;
+    border-radius: 5px 5px 5px 5px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #eaeaea;
+}
+
 .message {
     color: #ff0000;
 }
@@ -37,6 +50,19 @@ input:-webkit-autofill:focus {
     background: #ffffff;
     transition: 0.3s;
     z-index: 100;
+}
+
+#box_left::-webkit-scrollbar {
+    width: 5px;
+}
+
+#box_left::-webkit-scrollbar-thumb {
+    background: #686868;
+    border-radius: 5px 5px 5px 5px;
+}
+
+#box_left::-webkit-scrollbar-track {
+    background: #eaeaea;
 }
 
 #box_right {
